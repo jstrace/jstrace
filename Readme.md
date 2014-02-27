@@ -1,6 +1,6 @@
 # jstrace
 
-  Dynamic JavaScript tracing written in JavaScript, giving you insight into your nodejs live applications.
+  Dynamic JavaScript tracing written in JavaScript, giving you insight into your live nodejs applications.
 
   Similar to systems like [dtrace](http://dtrace.org/) or [ktap](http://www.ktap.org/), the goal of dynamic tracing is to enable a rich set of debugging information in live processes, often in production in order to help discover the root of an issue. These
   libraries have extremely minimal overhead when disabled, and may be enabled
