@@ -44,7 +44,9 @@ $ npm install -g jstrace
 
 ```
 
-## Example Implementation
+## Example
+
+### Instrumentation
 
  Support for example you have probes set up to mark the
  start and end of an http request, you may want to quickly
@@ -75,6 +77,8 @@ var server = http.createServer(function(req, res){
 server.listen(3000);
 ```
 
+### Analysis
+
  The `jstrace(1)` executable accepts a script which must export a function. This function all subscribed traces from the process(es) it is attached to. The `trace` object passed contains the information given to the in-processe `trace()` call, along with additional metadata such as `trace.timestamp`.
 
  We can use this data to od anything we like, here we're simply mapping the requset ids to output deltas between the two.
@@ -95,6 +99,27 @@ module.exports = function(trace){
       break;
   }
 }
+```
+
+ To run the script just pass it to `jstrace(1)` and watch the output flow!
+
+```
+$ jstrace response-duration.js
+
+298 -> 50ms
+302 -> 34ms
+299 -> 112ms
+287 -> 184ms
+289 -> 188ms
+297 -> 124ms
+286 -> 218ms
+295 -> 195ms
+300 -> 167ms
+304 -> 161ms
+307 -> 116ms
+301 -> 206ms
+305 -> 136ms
+314 -> 19ms
 ```
 
 ## Trace object
