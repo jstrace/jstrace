@@ -15,6 +15,17 @@ process.title = 'http';
 
 var ids = 0;
 
+// randomized status
+
+var status = [
+  200,
+  201,
+  400,
+  404,
+  500,
+  505
+];
+
 // server
 
 var server = http.createServer(function(req, res){
@@ -23,7 +34,7 @@ var server = http.createServer(function(req, res){
   trace('request:start', { id: id });
   setTimeout(function(){
 
-    res.statusCode = Math.random() > .85 ? 400 : 200;
+    res.statusCode = status[Math.random() * status.length | 0];
     res.end('hello world');
     trace('request:end', { id: id, status: res.statusCode });
   }, Math.random() * 250 | 0);
