@@ -24,9 +24,10 @@ $ npm install -g jstrace
 ## Features
 
  - dynamic tracing :)
- - low overhead when disabled
+ - very minimal overhead when disabled
  - flexible scripting capabilities
  - pid and process title filtering
+ - probe name filtering
  - multi-process support
 
 ## Usage
