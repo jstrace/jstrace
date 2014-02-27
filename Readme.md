@@ -196,6 +196,15 @@ setInterval(function(){
 
 ### Naming probes
 
+ In general you should use ":" as a separator for pattern matching, and prefix with something relevant for your module, such as the module's name. Here are some examples:
+
+ - `express:request:start`
+ - `express:socket:error`
+ - `koa:request:start`
+ - `koa:request:end`
+ - `myapp:login`
+ - `myapp:logout`
+
 ### Dependency injection
 
  If your library supports tracing, it's best that you do _not_
