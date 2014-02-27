@@ -121,7 +121,7 @@ $ jstrace response-duration.js
 
 ### Histograms
 
-  Create histograms using [ascii-histogram](https://github.com/visionmedia/node-ascii-histogram) to determine bottlenecks in your application:
+  Create histograms using [ascii-histogram](https://github.com/jstrace/ascii-histogram) to determine bottlenecks in your application:
 
 ```js
 var histogram = require('ascii-histogram');
@@ -169,7 +169,7 @@ setInterval(function(){
 
 ### Charts
 
-  Create realtime charts using [ascii-chart](https://github.com/segmentio/ascii-chart) to monitor changes at a given interval:
+  Create realtime charts using [ascii-chart](https://github.com/jstrace/ascii-chart) to monitor changes at a given interval:
 
  ![](https://dl.dropboxusercontent.com/u/6396913/misc/Screen%20Shot%202014-02-27%20at%209.16.12%20AM.png)
 
