@@ -200,7 +200,7 @@ setInterval(function(){
 
  If your library supports tracing, it's best that you do _not_
  add jstrace as a dependency, instead you should provide a `trace` option
- to let the user pass in jstrace if they wish. For example:
+ to let the user pass in jstrace if they wish. Some people call this "dependency injection". For example:
 
 ```js
 function MyLib(opts) {
@@ -209,6 +209,8 @@ function MyLib(opts) {
   this.trace('something', { some: 'data' });
 }
 ```
+
+  The premise here is that the community should start instrumenting libraries with this functionality so that node becomes easier to profile, monitor, and debug. This is especially important for detecting latency issues across async boundaries, as they not necessarily CPU-bound and may not show up in profiles at all.
 
 ## Trace object
 
