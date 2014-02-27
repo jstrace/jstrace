@@ -1,4 +1,3 @@
-
 # jstrace
 
   Dynamic JavaScript tracing written in JavaScript, giving you insight into your nodejs live applications.
@@ -49,12 +48,12 @@ $ npm install -g jstrace
 
 ### Instrumentation
 
- Support for example you have probes set up to mark the
+ Suppose for example you have probes set up to mark the
  start and end of an http request, you may want to quickly
  tap into the process and see which part of the request/response
  cycle is hindering latency.
 
- This contrived example isn't very exciting, and only shows has two
+ This contrived example isn't very exciting, and only has two
  probes, but it illustrates the capabilites. We simply mark the start and
  end of the request, as well as providing the request id.
 
@@ -83,7 +82,7 @@ server.listen(3000);
  The `jstrace(1)` executable accepts a script which exports functions with trace patterns
  to match. These function names tell jstrace which traces to subscribe to. The `trace` object passed contains the information given to the in-processe `trace()` call, along with additional metadata such as `trace.timestamp`.
 
- We can use this data to od anything we like, here we're simply mapping the requset ids to output deltas between the two.
+ We can use this data to add anything we like, here we're simply mapping the requset ids to output deltas between the two.
 
 ```js
 var m = {};
