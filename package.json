@@ -18,7 +18,8 @@
   },
   "devDependencies": {
     "mocha": "*",
-    "should": "*"
+    "should": "*",
+    "ascii-histogram": "~1.0.0"
   },
   "license": "MIT",
   "main": "lib/provider",
