@@ -23,8 +23,9 @@ var server = http.createServer(function(req, res){
   trace('request:start', { id: id });
   setTimeout(function(){
 
+    res.statusCode = Math.random() > .85 ? 400 : 200;
     res.end('hello world');
-    trace('request:end', { id: id });
+    trace('request:end', { id: id, status: res.statusCode });
   }, Math.random() * 250 | 0);
 });
 
