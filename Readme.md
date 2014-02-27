@@ -166,6 +166,24 @@ setInterval(function(){
 ...
 ```
 
+## Conventions
+
+### Naming probes
+
+### Dependency injection
+
+ If your library supports tracing, it's best that you do _not_
+ add jstrace as a dependency, instead you should provide a `trace` option
+ to let the user pass in jstrace if they wish. For example:
+
+```js
+function MyLib(opts) {
+  opts = opts || {};
+  this.trace = opts.trace || function(){};
+  this.trace('something', { some: 'data' });
+}
+```
+
 ## Trace object
 
 TODO: describe
