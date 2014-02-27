@@ -1,15 +1,11 @@
 
 var m = {};
 
-module.exports = function(trace){
-  switch (trace.name) {
-    case 'request:start':
-      m[trace.id] = trace.timestamp;
-      break;
+exports['request:start'] = function(trace){
+  m[trace.id] = trace.timestamp;
+};
 
-    case 'request:end':
-      var d = Date.now() - m[trace.id];
-      console.log('%s -> %sms', trace.id, d);
-      break;
-  }
+exports['request:end'] = function(trace){
+  var d = Date.now() - m[trace.id];
+  console.log('%s -> %sms', trace.id, d);
 };

@@ -31,8 +31,7 @@ assert(script, '<script> path required');
 
 // load the module
 
-var fn = require(path.resolve(script));
-assert('function' == typeof fn, 'script must export a function');
+var mod = require(path.resolve(script));
 
 // start
 
@@ -41,6 +40,4 @@ var client = new Client({
   pid: pid
 });
 
-client.on('trace', fn);
-
-client.start();
+client.start(mod);

@@ -79,25 +79,22 @@ server.listen(3000);
 
 ### Analysis
 
- The `jstrace(1)` executable accepts a script which must export a function. This function all subscribed traces from the process(es) it is attached to. The `trace` object passed contains the information given to the in-processe `trace()` call, along with additional metadata such as `trace.timestamp`.
+ The `jstrace(1)` executable accepts a script which exports functions with trace patterns
+ to match. These function names tell jstrace which traces to subscribe to. The `trace` object passed contains the information given to the in-processe `trace()` call, along with additional metadata such as `trace.timestamp`.
 
  We can use this data to od anything we like, here we're simply mapping the requset ids to output deltas between the two.
 
 ```
 var m = {};
 
-module.exports = function(trace){
-  switch (trace.name) {
-    case 'request:start':
-      m[trace.id] = trace.timestamp;
-      break;
+exports['request:start'] = function(trace){
+  m[trace.id] = trace.timestamp;
+};
 
-    case 'request:end':
-      var d = Date.now() - m[trace.id];
-      console.log('%s -> %sms', trace.id, d);
-      break;
-  }
-}
+exports['request:end'] = function(trace){
+  var d = Date.now() - m[trace.id];
+  console.log('%s -> %sms', trace.id, d);
+};
 ```
 
  To run the script just pass it to `jstrace(1)` and watch the output flow!

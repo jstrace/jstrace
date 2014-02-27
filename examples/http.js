@@ -29,3 +29,9 @@ var server = http.createServer(function(req, res){
 });
 
 server.listen(3000);
+
+// another just for trace noise
+
+setInterval(function(){
+  trace('something');
+}, 200);
