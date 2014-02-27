@@ -11,5 +11,5 @@ exports['request:end'] = function(trace){
 setInterval(function(){
   console.log();
   console.log(histogram(m, { bar: '=', width: 30 }));
-  m = {};
+  m = {}; // protip: you don't have to clear the bins ;)
 }, 1000);
