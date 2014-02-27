@@ -1,5 +1,6 @@
 
 var histogram = require('ascii-histogram');
+var clear = require('clear');
 
 var m = {};
 
@@ -9,7 +10,8 @@ exports['request:end'] = function(trace){
 };
 
 setInterval(function(){
+  clear();
   console.log();
   console.log(histogram(m, { bar: '=', width: 30 }));
-  m = {}; // protip: you don't have to clear the bins ;)
+  // m = {}; // optionally clear the bins each tick
 }, 1000);
