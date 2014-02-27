@@ -1,0 +1,28 @@
+{
+  "name": "jstrace",
+  "version": "0.0.1",
+  "repository": "segmentio/jstrace",
+  "description": "dynamic tracing written in javascript (similar to dtrace/ktap etc)",
+  "keywords": [
+    "trace",
+    "dtrace",
+    "tracing",
+    "debug",
+    "debugging"
+  ],
+  "dependencies": {
+    "commander": "~2.1.0",
+    "debug": "~0.7.4",
+    "actorify": "~0.1.0",
+    "backo": "~1.0.1"
+  },
+  "devDependencies": {
+    "mocha": "*",
+    "should": "*"
+  },
+  "license": "MIT",
+  "main": "lib/provider",
+  "bin": {
+    "jstrace": "bin/jstrace"
+  }
+}
