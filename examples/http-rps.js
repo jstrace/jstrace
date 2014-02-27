@@ -10,8 +10,12 @@ exports['request:end'] = function(trace){
 };
 
 setInterval(function(){
+  var w = 130;
+
   data.push(n);
+
   n = 0;
 
-  console.log(chart(data));
-}, 1000);
+  clear();
+  console.log(chart(data, { width: w }));
+}, 100);

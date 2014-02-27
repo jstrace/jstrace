@@ -20,7 +20,8 @@
     "mocha": "*",
     "should": "*",
     "ascii-histogram": "~1.1.0",
-    "clear": "0.0.1"
+    "clear": "0.0.1",
+    "ascii-chart": "~1.1.0"
   },
   "license": "MIT",
   "main": "lib/provider",
