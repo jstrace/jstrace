@@ -84,7 +84,7 @@ server.listen(3000);
 
  We can use this data to od anything we like, here we're simply mapping the requset ids to output deltas between the two.
 
-```
+```js
 var m = {};
 
 exports['request:start'] = function(trace){
