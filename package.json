@@ -1,6 +1,6 @@
 {
   "name": "jstrace",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "repository": "segmentio/jstrace",
   "description": "dynamic tracing written in javascript (similar to dtrace/ktap etc)",
   "keywords": [
