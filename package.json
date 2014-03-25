@@ -18,11 +18,12 @@
     "escape-regexp": "0.0.1"
   },
   "devDependencies": {
-    "mocha": "*",
-    "should": "*",
+    "ascii-chart": "~1.1.0",
     "ascii-histogram": "~1.2.1",
     "clear": "0.0.1",
-    "ascii-chart": "~1.1.0"
+    "histogram": "git://github.com/jstrace/histogram",
+    "mocha": "*",
+    "should": "*"
   },
   "license": "MIT",
   "main": "lib/provider",

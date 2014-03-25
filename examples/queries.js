@@ -10,6 +10,7 @@ var ids = 0;
 
 var server = http.createServer(function(req, res){
   var id = ++ids;
+  console.log('%s %s', req.method, req.url);
 
   trace('query:1:start', { id: id });
   query1(function(){
@@ -27,7 +28,7 @@ var server = http.createServer(function(req, res){
 server.listen(3000);
 
 function query1(fn) {
-  setTimeout(fn, Math.random() * 50 | 0);
+  setTimeout(fn, Math.random() * 500 | 0);
 }
 
 function query2(fn) {
