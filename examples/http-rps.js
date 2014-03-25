@@ -1,5 +1,5 @@
 
-var chart = require('ascii-chart');
+var chart = require('chart');
 var clear = require('clear');
 
 var data = [];

@@ -18,10 +18,10 @@
     "escape-regexp": "0.0.1"
   },
   "devDependencies": {
-    "ascii-chart": "~1.1.0",
-    "ascii-histogram": "~1.2.1",
-    "clear": "0.0.1",
+    "bars": "git://github.com/jstrace/bars",
+    "chart": "git://github.com/jstrace/chart",
     "histogram": "git://github.com/jstrace/histogram",
+    "clear": "0.0.1",
     "mocha": "*",
     "should": "*"
   },
