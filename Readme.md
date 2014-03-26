@@ -6,6 +6,8 @@
   libraries have very minimal overhead when disabled, and may be enabled
   externally when needed.
 
+  View the [wiki](https://github.com/jstrace/jstrace/wiki) for additional information and libraries which may be helpful.
+
 ## Installation
 
  Library:
