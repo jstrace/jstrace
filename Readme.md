@@ -23,11 +23,13 @@ $ npm install -g jstrace
 ## Features
 
  - dynamic tracing :)
- - very minimal overhead when disabled
+ - local / remote execution support
+ - minimal overhead when idle
  - flexible scripting capabilities
- - pid and process title filtering
  - probe name filtering
- - multi-process support
+ - pid, process title, and hostname filtering
+ - remote messaging for map/reduce style reporting
+ - multi-process support, inspect your cluster in realtime
 
 ## Usage
 
