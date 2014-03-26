@@ -285,6 +285,8 @@ setInterval(function(){
  - `myapp:login`
  - `myapp:logout`
 
+ You should also consider listing probe names with descriptions in your library or application readme file.
+
 ### Dependency injection
 
  If your library supports tracing, it's best that you do _not_
