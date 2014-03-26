@@ -248,7 +248,7 @@ setInterval(function(){
 
 ### Charting
 
-  Create realtime charts using [ascii-chart](https://github.com/jstrace/chart) to monitor changes over time:
+  Create realtime charts using [chart](https://github.com/jstrace/chart) to monitor changes over time:
 
  ![](https://dl.dropboxusercontent.com/u/6396913/misc/Screen%20Shot%202014-02-27%20at%209.16.12%20AM.png)
 
