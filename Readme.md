@@ -30,6 +30,7 @@ $ npm install -g jstrace
  - pid, process title, and hostname filtering
  - remote messaging for map/reduce style reporting
  - multi-process support, inspect your cluster in realtime
+ - binds to `0.0.0.0:4322` (may need this for firewalls)
 
 ## Usage
 
@@ -78,6 +79,71 @@ var server = http.createServer(function(req, res){
 });
 
 server.listen(3000);
+```
+
+### Local analysis
+
+ jstrace-local analysis is performed by exporting a `.local` function; When you invoke `.on()` jstrace internally broadcasts this information to the remotes when they connect and filters probes accordingly. The data is transmitted as-is from the remote for analysis.
+
+```js
+exports.local = function(traces){
+  traces.on('request:*', function(trace){
+    console.log(trace);
+  });
+};
+```
+
+ Local analysis can be expensive since entire objects are transferred, if you need less information or would prefer to distribute the load you can use the remote analysis feature.
+
+### Remote analysis
+
+ Remote analysis serializes the `.remote` function to the target processes for remote execution. This can be great for reporting on data that would be too expensive to transfer over the wire to `jstrace(1)`. For example suppose you just want to know the lengths of BLOBs sent to your API:
+
+```js
+exports.remote = function(traces){
+  traces.on('api:buffer', function(trace){
+    console.log(trace.buffer.length);
+  });
+};
+```
+
+Note the use of `console.log()`, jstrace provides custom `console.log()`, `console.error()`, and `console.dir()` methods which report back to `jstrace(1)`. You'll now receive something like the following:
+
+```
+12323
+232
+32423
+2321
+```
+
+When analysing a machine or cluster it's useful to know which machine did what, so the `console.dir()` method prefixes with the hostname, process title, and pid:
+
+```
+api-1/api/1234 >> 123132
+api-1/api/1234 >> 3212
+api-2/api/1200 >> 4324
+```
+
+ Note that unlike `.local` the modules you `require()` will __not__ be accessible within the `.remote` function, unless it is a node core module, or is present in your application.
+
+### Local & remote analysis
+
+  Local and remote methods may be used in tandem for map/reduce style reporting. Using `traces.emit()` in the `.remote` function you can transmit custom information back to `jstrace` for display or further analysis.
+
+```js
+var bytes = require('bytes');
+
+exports.remote = function(traces){
+  traces.on('api:buffer', function(trace){
+    traces.emit('buffer size', trace.buffer.length);
+  });
+};
+
+exports.local = function(traces){
+  traces.on('buffer size', function(n){
+    console.log('buffer %s', bytes(n));
+  });
+};
 ```
 
 ### Analysis
@@ -201,7 +267,6 @@ setInterval(function(){
 }, 1000);
 
 ```
-
 
 ## Conventions
 
