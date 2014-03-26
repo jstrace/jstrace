@@ -19,9 +19,10 @@
   },
   "devDependencies": {
     "bars": "git://github.com/jstrace/bars",
+    "bytes": "^0.3.0",
     "chart": "git://github.com/jstrace/chart",
-    "histogram": "git://github.com/jstrace/histogram",
     "clear": "0.0.1",
+    "histogram": "git://github.com/jstrace/histogram",
     "mocha": "*",
     "should": "*"
   },

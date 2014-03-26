@@ -1,12 +1,20 @@
 
+/**
+ * This example shows how you can perform more
+ * complex reporting, in this case charting requests-per-second
+ * using jstrace/chart.
+ */
+
 var chart = require('chart');
 var clear = require('clear');
 
 var data = [];
 var n = 0;
 
-exports['request:end'] = function(trace){
-  n++;
+exports.local = function(traces){
+  traces.on('request:end', function(trace){
+    n++
+  });
 };
 
 setInterval(function(){

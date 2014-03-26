@@ -1,13 +1,20 @@
 
-var bars = require('bars');
+/**
+ * This example shows how you can plot the distribution
+ * of http response statuses over time.
+ */
+
 var clear = require('clear');
+var bars = require('bars');
 
 var m = {};
 
-exports['request:end'] = function(trace){
-  m[trace.status] = m[trace.status] || 0;
-  m[trace.status]++;
-};
+exports.local = function(traces){
+  traces.on('request:end', function(trace){
+    m[trace.status] = m[trace.status] || 0;
+    m[trace.status]++;
+  });
+}
 
 setInterval(function(){
   clear();

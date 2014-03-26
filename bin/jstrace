@@ -4,7 +4,7 @@
  * Module dependencies.
  */
 
-var Client = require('../lib/client');
+var Local = require('../lib/local');
 var program = require('commander');
 var pkg = require('../package');
 var assert = require('assert');
@@ -32,12 +32,16 @@ assert(script, '<script> path required');
 // load the module
 
 var mod = require(path.resolve(script));
+assert(mod.local || mod.remote, '.local or .remote required');
 
 // start
 
-var client = new Client({
+var local = new Local({
+  remote: mod.remote,
   title: title,
   pid: pid
 });
 
-client.start(mod);
+if (mod.local) mod.local(local);
+
+local.start();
