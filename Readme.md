@@ -1,9 +1,9 @@
 # jstrace
 
-  Dynamic JavaScript tracing written in JavaScript, giving you insight into your live nodejs applications.
+  Dynamic tracing for JavaScript, written in JavaScript, providing you insight into your live nodejs applications, at the process, machine, or cluster level.
 
   Similar to systems like [dtrace](http://dtrace.org/) or [ktap](http://www.ktap.org/), the goal of dynamic tracing is to enable a rich set of debugging information in live processes, often in production in order to help discover the root of an issue. These
-  libraries have extremely minimal overhead when disabled, and may be enabled
+  libraries have very minimal overhead when disabled, and may be enabled
   externally when needed.
 
 ## Installation
@@ -43,6 +43,7 @@ $ npm install -g jstrace
     -V, --version          output the version number
     -p, --pid <pid>        trace with the given <pid>
     -t, --title <pattern>  trace with title matching <pattern>
+    -H, --host <pattern>   trace with hostname matching <pattern>
 
 ```
 
@@ -60,8 +61,8 @@ $ npm install -g jstrace
  end of the request, as well as providing the request id.
 
 ```js
-var http = require('http');
 var trace = require('jstrace');
+var http = require('http');
 
 var ids = 0;
 
@@ -82,20 +83,22 @@ server.listen(3000);
 ### Analysis
 
  The `jstrace(1)` executable accepts a script which exports functions with trace patterns
- to match. These function names tell jstrace which traces to subscribe to. The `trace` object passed contains the information given to the in-processe `trace()` call, along with additional metadata such as `trace.timestamp`.
+ to match. These function names tell jstrace which traces to subscribe to. The `trace` object passed contains the information given to the in-processe `trace()` call, along with additional metadata such as `.timestamp`, `.hostname`, `.pid`, and `.title`.
 
- We can use this data to add anything we like, here we're simply mapping the requset ids to output deltas between the two.
+ We can use this data to add anything we like, here we're simply mapping the requset ids to output deltas between the two. Note that we export the function named `.local`, there are two functions supported by jstrace, however `.local` means that the trace objects are sent over the wire and analysis is performed local to `jstrace(1)`.
 
 ```js
 var m = {};
 
-exports['request:start'] = function(trace){
-  m[trace.id] = trace.timestamp;
-};
+exports.local = function(traces){
+  traces.on('request:start', function(trace){
+    m[trace.id] = trace.timestamp;
+  });
 
-exports['request:end'] = function(trace){
-  var d = Date.now() - m[trace.id];
-  console.log('%s -> %sms', trace.id, d);
+  traces.on('request:end', function(trace){
+    var d = Date.now() - m[trace.id];
+    console.log('%s -> %sms', trace.id, d);
+  });
 };
 ```
 
@@ -120,24 +123,27 @@ $ jstrace response-duration.js
 314 -> 19ms
 ```
 
-### Histograms
+### Plotting distribution
 
-  Create histograms using [ascii-histogram](https://github.com/jstrace/ascii-histogram) to determine bottlenecks in your application:
+  Using node modules such as [bars](https://github.com/jstrace/bars) can aid in analysis, for exmaple plotting the distribution of response status codes over time.
 
 ```js
-var histogram = require('ascii-histogram');
+var clear = require('clear');
+var bars = require('bars');
 
 var m = {};
 
-exports['request:end'] = function(trace){
-  m[trace.status] = m[trace.status] || 0;
-  m[trace.status]++;
+exports.local = function(traces){
+  traces.on('request:end', function(trace){
+    m[trace.status] = m[trace.status] || 0;
+    m[trace.status]++;
+  });
 };
 
 setInterval(function(){
+  clear();
   console.log();
-  console.log(histogram(m, { bar: '=', width: 30 }));
-  m = {};
+  console.log(bars(m, { bar: '=', width: 30 }));
 }, 1000);
 ```
 
@@ -168,21 +174,23 @@ setInterval(function(){
 ...
 ```
 
-### Charts
+ To reset the data per-interval tick all you'd have to do is add `m = {};` at the end of the `setInterval()` callback to refresh the data!
 
-  Create realtime charts using [ascii-chart](https://github.com/jstrace/ascii-chart) to monitor changes over time:
+### Charting
+
+  Create realtime charts using [ascii-chart](https://github.com/jstrace/chart) to monitor changes over time:
 
  ![](https://dl.dropboxusercontent.com/u/6396913/misc/Screen%20Shot%202014-02-27%20at%209.16.12%20AM.png)
 
 ```js
-var chart = require('ascii-chart');
+var chart = require('chart');
 var clear = require('clear');
 
 var data = [];
 var n = 0;
 
-exports['request:end'] = function(trace){
-  n++;
+exports.local = function(traces){
+  traces.on('request:end', function(trace){ n++ });
 };
 
 setInterval(function(){
@@ -191,6 +199,7 @@ setInterval(function(){
   clear();
   console.log(chart(data));
 }, 1000);
+
 ```
 
 
@@ -225,9 +234,10 @@ function MyLib(opts) {
 
 ## Trace object
 
-TODO: describe
+ The trace object sent to both local and remote subscription handlers.
 
  - `timestamp` timestamp at the time of invocation
+ - `hostname` machine hostname
  - `title` process title
  - `pid` process id
  - `name` trace name
