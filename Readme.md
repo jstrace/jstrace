@@ -285,7 +285,7 @@ setInterval(function(){
  - `myapp:login`
  - `myapp:logout`
 
- You should also consider listing probe names with descriptions in your library or application readme file.
+You should also consider listing probe names with descriptions in your library or application readme file.
 
 ### Dependency injection
 
