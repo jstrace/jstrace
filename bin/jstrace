@@ -17,10 +17,12 @@ program
   .usage('[options] <script>')
   .option('-p, --pid <pid>', 'trace with the given <pid>')
   .option('-t, --title <pattern>', 'trace with title matching <pattern>')
+  .option('-H, --hostname <pattern>', 'trace with hostname matching <pattern>')
   .parse(process.argv);
 
 // pid or title
 
+var hostname = program.hostname;
 var title = program.title;
 var pid = program.pid;
 
@@ -38,6 +40,7 @@ assert(mod.local || mod.remote, '.local or .remote required');
 
 var local = new Local({
   remote: mod.remote,
+  hostname: hostname,
   title: title,
   pid: pid
 });
