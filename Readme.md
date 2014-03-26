@@ -148,7 +148,7 @@ exports.local = function(traces){
 
  It's worth noting that `.on()` in `.local` is used for both remote probe subscription, _and_ events emitted by the `.remote`. Since they share this space you wouldn't want to emit similar names, for example `traces.emit('api:buffer', ...)` would be bad, since local would actually end up subscribing to the original trace _instead_ of the data emitted. This is rarely an issue but something to be aware of.
 
-### Analysis
+### Full analysis example
 
  The `jstrace(1)` executable accepts a script which exports functions with trace patterns
  to match. These function names tell jstrace which traces to subscribe to. The `trace` object passed contains the information given to the in-processe `trace()` call, along with additional metadata such as `.timestamp`, `.hostname`, `.pid`, and `.title`.
