@@ -1,4 +1,11 @@
 
+0.1.0 / 2014-03-26
+==================
+
+ * add `.remote` support
+ * add `.local` support
+ * add `--host` flag for hostname filtering
+
 0.0.5 / 2014-02-28
 ==================
 
