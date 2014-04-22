@@ -126,7 +126,7 @@ api-1/api/1234 >> 3212
 api-2/api/1200 >> 4324
 ```
 
- Note that unlike `.local` the modules you `require()` will __not__ be accessible within the `.remote` function, unless it is a node core module, or is present in your application.
+ Note that unlike `.local` you need to `require()` your modules from within the `.remote` function.
 
 ### Local & remote analysis
 
