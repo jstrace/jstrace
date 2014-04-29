@@ -314,6 +314,11 @@ function MyLib(opts) {
  - `name` trace name
  - `*` all other properties given
 
+## Authors
+
+ - TJ Holowaychuk
+ - Julian Gruber
+
 # License
 
   MIT
