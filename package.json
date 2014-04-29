@@ -15,7 +15,8 @@
     "debug": "~0.7.4",
     "actorify": "~0.1.0",
     "backo": "~1.0.1",
-    "escape-regexp": "0.0.1"
+    "escape-regexp": "0.0.1",
+    "batch": "~0.5.0"
   },
   "devDependencies": {
     "bars": "git://github.com/jstrace/bars",
