@@ -128,6 +128,8 @@ api-2/api/1200 >> 4324
 
  Note that unlike `.local` you need to `require()` your modules from within the `.remote` function.
 
+### Remote cleanup
+
  When you perform evented operations in your remote function, like `setInterval()` or listening for events on emitters other than `traces`, listen for the `"cleanup"` event in order to finish the trace script completely once the cli exits:
 
 ```js
