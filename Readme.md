@@ -128,6 +128,26 @@ api-2/api/1200 >> 4324
 
  Note that unlike `.local` you need to `require()` your modules from within the `.remote` function.
 
+### Remote cleanup
+
+ When you perform evented operations in your remote function, like `setInterval()` or listening for events on emitters other than `traces`, listen for the `"cleanup"` event in order to finish the trace script completely once the cli exits:
+
+```js
+exports.remote = function(traces){
+  traces.on('api:buffer', function(trace){
+    // will automatically be cleaned up
+  });
+
+  var id = setInterval(function(){
+    console.log(Date.now());
+  });
+
+  traces.on('cleanup', function(){
+    clearInterval(id);
+  });
+};
+```
+
 ### Local & remote analysis
 
   Local and remote methods may be used in tandem for map/reduce style reporting. Using `traces.emit()` in the `.remote` function you can transmit custom information back to `jstrace` for display or further analysis.
