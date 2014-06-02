@@ -1,4 +1,16 @@
 
+0.3.0 / 2014-06-02
+==================
+
+ * add remote cleanup support
+ * add process.{stdout,stderr} support for remote scripts. Closes #23
+ * add server.prefix(str)
+ * add: warn when overriding reserved properties
+ * update actorify for cb leak fix
+ * fix circular struct error handling
+ * fix .title when defined later. Closes #27
+ * fix process title filtering
+
 0.2.0 / 2014-04-25
 ==================
 
